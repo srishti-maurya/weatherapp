@@ -8,8 +8,7 @@ print(data['weather'][0]['description'])
 '''
 #method 2
 import tkinter
-window=tkinter.Tk(className='my first project window')
-window.mainloop()
+from tkinter import *
 import datetime
 import json
 import urllib.request
@@ -18,20 +17,20 @@ def convert_time(time):
         int(time)
     ).strftime('%I:%M %p')
     return time_convert
-def forming_url(city_id):
-    api_of_user = '44e132805ba20778ad6e1b48abf49b05'
+def forming_url(city_name):
+    api_of_user = '**************************'
     unit_used = 'metric'
-    model_of_api = 'http://api.openweathermap.org/data/2.5/weather?id='
-
-    final_api_url = model_of_api + str(city_id) + '&mode=json&units=' + unit_used + '&APPID=' + api_of_user
+    model_of_api = 'http://api.openweathermap.org/data/2.5/weather?q='
+    final_api_url = model_of_api + str(city_name) + '&mode=json&units=' + unit_used + '&APPID=' + api_of_user
     return final_api_url
 def data_fetch(final_api_url):
     fetching_url = urllib.request.urlopen(final_api_url)
     getting_output = fetching_url.read().decode('utf-8')
-    print(getting_output)
+    #print(getting_output)
     api_dict_model = json.loads(getting_output)
-    print(api_dict_model)
+    # print(api_dict_model)
     fetching_url.close()
+    return api_dict_model
 def organizing_data(api_dict_model):
     data = dict(
         city=api_dict_model.get('name'),
@@ -52,22 +51,32 @@ def organizing_data(api_dict_model):
     return data
 def output_format(data):
     temp_symbol = '\xb0' + 'C'
-    print('######################################')
-    print('Current weather in: {}, {}:'.format(data['city'], data['country']))
-    print(data['temp'], temp_symbol, data['sky'])
-    print('Max: {}, Min: {}'.format(data['temp_max'], data['temp_min']))
-    print('')
-    print('Wind Speed: {}, Degree: {}'.format(data['wind'], data['wind_deg']))
-    print('Humidity: {}'.format(data['humidity']))
-    print('Cloud: {}'.format(data['cloudiness']))
-    print('Pressure: {}'.format(data['pressure']))
-    print('Sunrise at: {}'.format(data['sunrise']))
-    print('Sunset at: {}'.format(data['sunset']))
-    print('')
-    print('Last update from the server: {}'.format(data['dt']))
-    print('######################################')
+    city_lab = Label(window, text="City:")
+    city_lab.grid(row=5, column=0)
+    city_data.config(text=data['city'])
+    city_data.grid(row=5, column=1)
+    country_data.config(text=data['country'])
+    country_data.grid(row=5, column=2)
+    temp_max.config(text=str(data['temp_max']) + temp_symbol)
+    temp_max.grid(row=6, column=1)
+    temp_min.config(text=str(data['temp_min']) + temp_symbol)
+    temp_min.grid(row=6, column=2)
+def fetch_data():
+    city_name = city_entry.get()
+    output_format(organizing_data(data_fetch(forming_url(city_name))))
 try:
-    name_of_city= input("Enter a city name:")
-    output_format(organizing_data(data_fetch(forming_url(1273294))))
+    window = tkinter.Tk(className='Weather Forecast')
+    city_label = Label(window, text="Enter a city: ")
+    city_label.grid(row=0, column=0)
+    city_entry = Entry(window)
+    city_entry.grid(row=0, column=1)
+    show = Button(window, text="Show", command=fetch_data)
+    show.grid(row=1, column=1)
+    city_data = Label(window)
+    country_data = Label(window)
+    temp_max = Label(window)
+    temp_min = Label(window)
+    window.mainloop()
 except IOError:
     print('no internet')
+
