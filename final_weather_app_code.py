@@ -7,6 +7,27 @@ import sys
 import os
 from tkinter import PhotoImage
 
+import re
+import requests
+def next_day():
+    r = requests.get(url='http://api.openweathermap.org/data/2.5/forecast?q=bangalore&mode=json&units=metric&APPID=44e132805ba20778ad6e1b48abf49b05')
+    json_data= r.json()
+    list_items= json_data['list']
+    now = datetime.datetime.now()
+    today=now.day
+    list_indices =[]
+    for items in list_items:
+        matchObj=re.match(r"(\d+)-(\d+)-(\d+)",items['dt_txt'],re.M|re.I)
+        list_indices.append(matchObj[3])
+
+    for items in list_indices:
+        if(int(items)==today):
+            index=list_indices.index(items)
+        break
+    print(index)
+    print(list_items[index])
+
+
 
 def time_converter(time):
     converted_time = datetime.datetime.fromtimestamp(
@@ -87,7 +108,7 @@ def data_output(data):
 
     print(str(citid) + ", " + str(countryid))
     global root
-    root = tkinter.Tk()
+    ### Shifted root initialization
     root.geometry('900x515')
     root.title('Weather in:' + " " + str(citid) + ", " + str(countryid))
     root.wm_iconbitmap('wicon.ico')
@@ -101,330 +122,355 @@ def data_output(data):
     wean = tkinter.Label(text=" " + str(weatherdata), font=("Courier", 28, 'bold'))  # make weather update show here
     wean.grid(row=4, column=6)
 
+###
+def fetch_data():
+    city_name = city_entry.get()
+    data_output(data_organizer(data_fetch(url_builder(city_name))))
+    print(weatherid)
 
-if __name__ == '__main__':
-    try:
-        city_name = input("Enter a city name:")
-        data_output(data_organizer(data_fetch(url_builder(city_name))))
-    except IOError:
-        print('no internet')
+    if weatherid == '200':
+        print('Rainy Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id3.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '201':
+        print('Rainy Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id3.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '202':
+        print('Rainy Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id3.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '230':
+        print('Rainy Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id3.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '231':
+        print('Rainy Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id3.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '232':
+        print('Rainy Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id3.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # thunderstorm
+
+    if weatherid == '210':
+        print('Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id4.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '211':
+        print('Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id4.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '212':
+        print('Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id4.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '221':
+        print('Thunderstorm')
+        weathertype = tkinter.PhotoImage(file="id4.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # light rain
+
+    if weatherid == '300':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '301':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '302':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '310':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '311':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '312':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '313':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '314':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '321':
+        print('Light Rain')
+        weathertype = tkinter.PhotoImage(file="id5.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # rain
+    if weatherid == '500':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '501':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '502':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '503':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '504':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '511':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '520':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+    if weatherid == '521':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '522':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '531':
+        print('Rain')
+        weathertype = tkinter.PhotoImage(file="id6.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # snow
+    if weatherid == '600':
+        print('Snow')
+        weathertype = tkinter.PhotoImage(file="id7.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '601':
+        print('Snow')
+        weathertype = tkinter.PhotoImage(file="id7.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '602':
+        print('Snow')
+        weathertype = tkinter.PhotoImage(file="id7.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '620':
+        print('Snow')
+        weathertype = tkinter.PhotoImage(file="id7.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '621':
+        print('Snow')
+        weathertype = tkinter.PhotoImage(file="id7.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '622':
+        print('Snow')
+        weathertype = tkinter.PhotoImage(file="id7.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # sleet
+    if weatherid == '611':
+        print('Sleet')
+        weathertype = tkinter.PhotoImage(file="id8.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '612':
+        print('Sleet')
+        weathertype = tkinter.PhotoImage(file="id8.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '615':
+        print('Sleet')
+        weathertype = tkinter.PhotoImage(file="id8.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '616':
+        print('Sleet')
+        weathertype = tkinter.PhotoImage(file="id8.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # tornado
+    if weatherid == '781':
+        print('TORNADO')
+        weathertype = tkinter.PhotoImage(file="id9.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '900':
+        print('TORNADO')
+        weathertype = tkinter.PhotoImage(file="id9.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # sunny
+    if weatherid == '800':
+        print('Sunny/Clear')
+        weathertype = tkinter.PhotoImage(file="id10.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+    if weatherid == '951':
+        print('Sunny/Clear')
+        weathertype = tkinter.PhotoImage(file="id10.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+
+        # lightly cloudy
+    if weatherid == '801':
+        print('Sunny with some clouds')
+        weathertype = tkinter.PhotoImage(file="id11.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
+        #
+        # mid cloudy
+    if weatherid == '802':
+        print('Cloudy')
+        weathertype = tkinter.PhotoImage(file="id12.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
 
 
-tempimg = tkinter.PhotoImage(file="id.gif")
-imgtemp = tkinter.Label(image=tempimg)
+        # heavy cloudy
+    if weatherid == '803':
+        print('Lots of clouds')
+        weathertype = tkinter.PhotoImage(file="id13.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
 
-# temp image
-tempimg = tkinter.PhotoImage(file="id.gif")
+    if weatherid == '804':
+        print('Lots of clouds')
+        weathertype = tkinter.PhotoImage(file="id13.gif")
+        typew.configure(image=weathertype)
+        typew.image = weathertype
 
-tempweat = tempimg.zoom(3, 3)
-tempweat = tempimg.subsample(2, 2)
+###
 
-imgtemp = tkinter.Label(image=tempweat)
-imgtemp.grid(row=0, column=0)
 
-# wind image
-windimg = tkinter.PhotoImage(file="id2.gif")
+try:
+    # city_name = input("Enter a city name:")
+    ###
+    root = tkinter.Tk()
+    tempimg = tkinter.PhotoImage(file="id.gif")
+    imgtemp = tkinter.Label(image=tempimg)
 
-windweat = windimg.zoom(3, 3)
-windweat = windimg.subsample(2, 2)
+    # temp image
+    tempimg = tkinter.PhotoImage(file="id.gif")
 
-imgwind = tkinter.Label(image=windweat)
-imgwind.grid(row=1, column=0)
+    tempweat = tempimg.zoom(3, 3)
+    tempweat = tempimg.subsample(2, 2)
 
-# img ids
-if weatherid == '200':
-    print('Rainy Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id3.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
+    imgtemp = tkinter.Label(image=tempweat)
+    imgtemp.grid(row=0, column=0)
 
-if weatherid == '201':
-    print('Rainy Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id3.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
+    # wind image
+    windimg = tkinter.PhotoImage(file="id2.gif")
 
-if weatherid == '202':
-    print('Rainy Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id3.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
+    windweat = windimg.zoom(3, 3)
+    windweat = windimg.subsample(2, 2)
 
-if weatherid == '230':
-    print('Rainy Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id3.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
+    imgwind = tkinter.Label(image=windweat)
+    imgwind.grid(row=1, column=0)
 
-if weatherid == '231':
-    print('Rainy Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id3.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '232':
-    print('Rainy Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id3.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # thunderstorm
-
-if weatherid == '210':
-    print('Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id4.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '211':
-    print('Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id4.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '212':
-    print('Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id4.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '221':
-    print('Thunderstorm')
-    weathertype = tkinter.PhotoImage(file="id4.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # light rain
-
-if weatherid == '300':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '301':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '302':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '310':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '311':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '312':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '313':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '314':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '321':
-    print('Light Rain')
-    weathertype = tkinter.PhotoImage(file="id5.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # rain
-if weatherid == '500':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '501':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '502':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '503':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '504':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '511':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '520':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '521':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '522':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '531':
-    print('Rain')
-    weathertype = tkinter.PhotoImage(file="id6.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # snow
-if weatherid == '600':
-    print('Snow')
-    weathertype = tkinter.PhotoImage(file="id7.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '601':
-    print('Snow')
-    weathertype = tkinter.PhotoImage(file="id7.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '602':
-    print('Snow')
-    weathertype = tkinter.PhotoImage(file="id7.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '620':
-    print('Snow')
-    weathertype = tkinter.PhotoImage(file="id7.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '621':
-    print('Snow')
-    weathertype = tkinter.PhotoImage(file="id7.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '622':
-    print('Snow')
-    weathertype = tkinter.PhotoImage(file="id7.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # sleet
-if weatherid == '611':
-    print('Sleet')
-    weathertype = tkinter.PhotoImage(file="id8.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '612':
-    print('Sleet')
-    weathertype = tkinter.PhotoImage(file="id8.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '615':
-    print('Sleet')
-    weathertype = tkinter.PhotoImage(file="id8.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '616':
-    print('Sleet')
-    weathertype = tkinter.PhotoImage(file="id8.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # tornado
-if weatherid == '781':
-    print('TORNADO')
-    weathertype = tkinter.PhotoImage(file="id9.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-if weatherid == '900':
-    print('TORNADO')
-    weathertype = tkinter.PhotoImage(file="id9.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
-
-    # sunny
-if weatherid == '800':
-    print('Sunny/Clear')
+    # img ids
     weathertype = tkinter.PhotoImage(file="id10.gif")
+    global typew
     typew = tkinter.Label(image=weathertype)
     typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
 
-if weatherid == '951':
-    print('Sunny/Clear')
-    weathertype = tkinter.PhotoImage(file="id10.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
 
-    # lightly cloudy
-if weatherid == '801':
-    print('Sunny with some clouds')
-    weathertype = tkinter.PhotoImage(file="id11.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
 
-    # mid cloudy
-if weatherid == '802':
-    print('Cloudy')
-    weathertype = tkinter.PhotoImage(file="id12.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
+    city_label = tkinter.Label(root, text="Enter a city: ")
+    city_label.grid(row=40, column=0)
+    city_entry = tkinter.Entry(root)
+    city_entry.grid(row=40, column=1)
 
-    # heavy cloudy
-if weatherid == '803':
-    print('Lots of clouds')
-    weathertype = tkinter.PhotoImage(file="id13.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
+    show = tkinter.Button(root, text="Show", command=fetch_data)
+    show.grid(row=41, column=1)
+    next_day = tkinter.Button(root, text=">", command=next_day)
+    next_day.grid(row=45, column=1)
 
-if weatherid == '804':
-    print('Lots of clouds')
-    weathertype = tkinter.PhotoImage(file="id13.gif")
-    typew = tkinter.Label(image=weathertype)
-    typew.grid(row=0, column=6, columnspan=3, rowspan=2, padx=5, pady=5)
 
-root.mainloop()
-
+    root.mainloop()
+    ###
+    # data_output(data_organizer(data_fetch(url_builder(city_name))))
+except IOError:
+    print('no internet')
